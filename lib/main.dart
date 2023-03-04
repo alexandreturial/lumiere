@@ -8,13 +8,11 @@ import 'app/app_widget.dart';
 
 import 'package:intl/date_symbol_data_local.dart';
 
-void main() async{
+void main() async {
+  await dotenv.load(fileName: Enviroment.filename);
 
-  await dotenv.load(
-    fileName: Enviroment.filename
-  );
-  
   WidgetsFlutterBinding.ensureInitialized();
 
-  initializeDateFormatting().then((_) => runApp(ModularApp(module: AppModule(), child: AppWidget())));
+  initializeDateFormatting()
+      .then((_) => runApp(ModularApp(module: AppModule(), child: const AppWidget())));
 }

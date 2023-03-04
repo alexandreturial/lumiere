@@ -11,7 +11,6 @@ class Debounce {
   Debounce({this.milliseconds = 500});
 
   void run(VoidCallback action){
-    print(_timer);
     if(_timer?.isActive ?? false) _timer!.cancel();
     _timer = Timer(Duration(milliseconds: milliseconds), action);
   }

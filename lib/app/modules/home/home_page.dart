@@ -5,7 +5,10 @@ import 'package:lumiere/app/utils/responsive.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
+  // ignore: library_private_types_in_public_api
   _HomePageState createState() => _HomePageState();
 }
 
@@ -42,7 +45,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void dispose() {
-    _counterCubit.close();
+    // _counterCubit.close();
     super.dispose();
   }
 
@@ -87,9 +90,9 @@ class _HomePageState extends State<HomePage> {
     final Responsive responsive = Responsive(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Counter'),
+        title: const Text('Counter'),
       ),
-      body: Container(
+      body: SizedBox(
         width: responsive.width,
         height: responsive.height,
         child: Column(
@@ -113,7 +116,7 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
                 Expanded(
-                  child: Container(
+                  child: SizedBox(
                     height: responsive
                         .hp(format == CalendarFormat.twoWeeks ? 64.3 : 43.5),
                     width: responsive.width,

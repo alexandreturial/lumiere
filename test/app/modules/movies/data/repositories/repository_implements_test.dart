@@ -21,12 +21,12 @@ void main() {
     datasource = MockMovieDatasource();
     repository = MovieRepositoryImpl(movieDataSource: datasource);
   });
-  const movies = [
-    MovieModel(id: 0, name: '', poster: ''),
-    MovieModel(id: 0, name: '', poster: '')
+
+  final movies = [
+    const MovieModel(id: 0, name: '', poster: '', date: '',overview: ''),
+    const MovieModel(id: 0, name: '', poster: '', date: '',overview: '')
   ];
   
-  final tDate = DateTime(2021, 02, 02);
 
   test('Should return space media model when calls the datasource', 
   () async{
@@ -36,7 +36,7 @@ void main() {
     );
 
     final result = await repository.getMoviesBySearch('');
-    expect(result, const Right(movies));
+    expect(result, Right(movies));
     verify(()=>datasource.searchMovies(1, ''));
   });
 

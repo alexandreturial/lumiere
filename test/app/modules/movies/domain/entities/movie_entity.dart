@@ -10,16 +10,16 @@ import 'package:lumiere/app/modules/movies/presenter/movies_bloc.dart';
 class TestMovie extends IMovieRepository {
   @override
   Future<Either<Faliure, List<MovieEntity?>>> getMoviesBySearch(String search) {
-    return Future.value(const Right([ MovieEntity(id: 0, name: '', poster: '')]));
+    return Future.value(const Right([ MovieEntity(id: 0, name: '', poster: '', date: '', overview: '')]));
   }
 
 }
  
 void main() {
 
-  blocTest<MoviesBloc, int>('emits [1] when increment is added',
+  blocTest<MoviesBloc, List<MovieEntity?>>('emits [1] when increment is added',
     build: () => MoviesBloc(movieRepository: TestMovie()),
-    act: (bloc) => bloc.searchMovies(),
+    act: (bloc) => bloc.searchMovies(''),
     expect: () => [3],
     
   );

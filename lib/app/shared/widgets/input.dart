@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lumiere/app/core/styles/app_colors.dart';
+import 'package:lumiere/app/core/styles/app_text_style.dart';
 
 class InputWidget extends StatefulWidget {
   final bool isObscureData;
@@ -27,20 +29,24 @@ class InputWidget extends StatefulWidget {
     this.suffixIcon,
     this.prefixIcon,
     this.initialValue,
-    this.maxSize = 60, 
+    this.maxSize = 60,
     this.isLogin = false,
     this.fillColor,
   }) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _InputWidgetState createState() => _InputWidgetState();
 }
 
 class _InputWidgetState extends State<InputWidget> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      //margin: const EdgeInsets.only(bottom: 15),
+    return PhysicalModel(
+      borderRadius: BorderRadius.circular(28),
+      color: Theme.of(context).colorScheme.shadow,
+      elevation: 4.0,
+      shadowColor: Theme.of(context).colorScheme.shadow,
       child: TextFormField(
         cursorColor: Theme.of(context).textSelectionTheme.cursorColor,
         initialValue: widget.initialValue,
@@ -49,36 +55,32 @@ class _InputWidgetState extends State<InputWidget> {
         onChanged: (text) => widget.setValue(text),
         keyboardType: widget.textType,
         focusNode: widget.myFocous,
-        // style: AppTextStyles.textRegularH12.apply(
-        //   color: Theme.of(context).colorScheme.surface
-        // ),
+        
+        style: AppTextStyles.textSemiBoldH14.apply(color: AppColors.textSecundary),
         decoration: InputDecoration(
           suffixIcon: widget.suffixIcon,
           contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
           hintText: widget.hintText,
           filled: true,
-          // hintStyle: AppTextStyles.textRegularH12.apply(
-          //   color: Theme.of(context).colorScheme.surface
-          // ),
           prefixIcon: widget.prefixIcon,
-          //prefixIconColor: AppColors.roude,
-          // prefixIconColor: Theme.of(context).textSelectionTheme.cursorColor,
-          fillColor: widget.fillColor ?? Theme.of(context).colorScheme.onBackground,
+          fillColor: Color(0xFF2C2C47),
+          //  widget.fillColor ?? Theme.of(context).colorScheme.onBackground,
+          errorText: widget.hasError ? "" : null,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: Theme.of(context).colorScheme.onBackground, width: 1.0),
+            borderSide: BorderSide.none,
+            borderRadius: BorderRadius.circular(28),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: Theme.of(context).colorScheme.onBackground, width: 1.0),
+            borderSide: BorderSide.none,
+            borderRadius: BorderRadius.circular(28),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: Theme.of(context).colorScheme.onBackground, width: 1.0),
+            borderSide: BorderSide.none,
+            borderRadius: BorderRadius.circular(28),
           ),
-          errorText: widget.hasError ? "" : null,
           errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide.none,
+            borderRadius: BorderRadius.circular(28),
             // borderSide: BorderSide(color: AppColors.roude, width: 1.0),
           ),
         ),

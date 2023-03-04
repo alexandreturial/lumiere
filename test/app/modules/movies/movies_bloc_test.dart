@@ -10,7 +10,7 @@ import 'package:lumiere/app/modules/movies/presenter/movies_bloc.dart';
 class TestMovie extends IMovieRepository {
   @override
   Future<Either<Faliure, List<MovieEntity?>>> getMoviesBySearch(String search) {
-    return Future.value(const Right([ MovieEntity(id: 0, name: '', poster: '')]));
+    return Future.value(const Right([ MovieEntity(id: 0, name: '', poster: '', date: '', overview: '')]));
   }
 
 }

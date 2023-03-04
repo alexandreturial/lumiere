@@ -25,4 +25,4 @@ final movies = {
   "total_results": 55
 };
 
-const moviesModel =  [MovieModel(id: 299534, name: 'Avengers: Endgame', poster: '/or06FN3Dka5tukK1e9sl16pB3iy.jpg')];
+final moviesModel =  [const MovieModel(id: 299534, name: 'Avengers: Endgame', poster: '/or06FN3Dka5tukK1e9sl16pB3iy.jpg', date: '', overview: '')];

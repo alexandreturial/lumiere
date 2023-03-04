@@ -1,7 +1,8 @@
 import 'package:lumiere/app/modules/movies/domain/entities/movie.dart';
 
 class MovieModel extends MovieEntity{
-  const MovieModel({required super.id, required super.name, required super.poster});
+  MovieModel({required super.id, required super.name, required super.poster, required super.overview, required super.date});
+ 
 
 
   factory MovieModel.fromJson(Map<String, dynamic> json){    
@@ -9,6 +10,9 @@ class MovieModel extends MovieEntity{
       id: json['id'],
       name: json['title'] ?? '',
       poster: json['poster_path'] ?? '',
+      date: json['release_date'] ?? '',
+      overview: json['overview'] ?? '',
     );
+
   }
 }

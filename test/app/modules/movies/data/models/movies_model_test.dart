@@ -4,7 +4,7 @@ import 'package:lumiere/app/modules/movies/domain/entities/movie.dart';
 
 
 void main() {
-  MovieModel movieModel = const MovieModel(id: 0, name: '', poster: '');
+  MovieModel movieModel = const MovieModel(id: 0, name: '', poster: '', date: '',overview: '');
   
 
   test('should be a subclass of MovieEntity',(){

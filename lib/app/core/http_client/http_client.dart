@@ -1,13 +1,12 @@
-import 'package:dio/dio.dart';
 
 abstract class HttpClient{
-  Future<HttpResponse> get(String url, Options? options);
+  Future<HttpResponse> get(String url, dynamic options);
   
   Future<HttpResponse> post(
     String url, 
     dynamic data,
     {
-      Options? option
+      dynamic option
     }
   );
 
@@ -15,7 +14,7 @@ abstract class HttpClient{
     String url, 
     dynamic data,
     {
-      Options? option
+     dynamic option
     }
   );
 
@@ -23,7 +22,7 @@ abstract class HttpClient{
     String url, 
     dynamic data,
     {
-      Options? option
+     dynamic option
     }
   );
 
