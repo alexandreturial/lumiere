@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:lumiere/app/core/http_client/http_client.dart';
+import 'package:lumiere/app/shared/core/http_client/http_client.dart';
 
 class DioClientImplementation implements HttpClient{
   

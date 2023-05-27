@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lumiere/app/core/styles/app_colors.dart';
-import 'package:lumiere/app/core/styles/app_text_style.dart';
+import 'package:lumiere/app/shared/core/styles/app_colors.dart';
+import 'package:lumiere/app/shared/core/styles/app_text_style.dart';
 
 class InputWidget extends StatefulWidget {
   final bool isObscureData;
@@ -55,34 +55,13 @@ class _InputWidgetState extends State<InputWidget> {
         onChanged: (text) => widget.setValue(text),
         keyboardType: widget.textType,
         focusNode: widget.myFocous,
-        
         style: AppTextStyles.textSemiBoldH14.apply(color: AppColors.textSecundary),
         decoration: InputDecoration(
           suffixIcon: widget.suffixIcon,
           contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-          hintText: widget.hintText,
-          filled: true,
+          hintText: "vingadores...",
           prefixIcon: widget.prefixIcon,
-          fillColor: Color(0xFF2C2C47),
-          //  widget.fillColor ?? Theme.of(context).colorScheme.onBackground,
-          errorText: widget.hasError ? "" : null,
-          border: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(28),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(28),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(28),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(28),
-            // borderSide: BorderSide(color: AppColors.roude, width: 1.0),
-          ),
+
         ),
       ),
     );

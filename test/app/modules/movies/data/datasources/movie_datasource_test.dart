@@ -1,7 +1,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:lumiere/app/core/errors/exceptions.dart';
-import 'package:lumiere/app/core/http_client/http_client.dart';
+import 'package:lumiere/app/shared/core/errors/exceptions.dart';
+import 'package:lumiere/app/shared/core/http_client/http_client.dart';
 import 'package:lumiere/app/modules/movies/data/datasource/datasource.dart';
 import 'package:lumiere/app/modules/movies/data/datasource/datasource_implementation.dart';
 import 'package:mocktail/mocktail.dart';

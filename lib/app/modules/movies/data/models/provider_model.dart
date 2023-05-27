@@ -2,7 +2,10 @@
 import 'package:lumiere/app/modules/movies/domain/entities/providers.dart';
 
 class ProvidersModel extends ProvidersEntity{
-  const ProvidersModel({required super.displayPriority, required super.logoPath, required super.providerId, required super.providerName});
+  ProvidersModel({
+    required super.displayPriority, 
+    required super.logoPath, 
+    required super.providerId, required super.providerName});
  
 
 

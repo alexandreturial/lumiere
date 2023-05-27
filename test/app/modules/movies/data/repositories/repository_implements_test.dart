@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:lumiere/app/core/errors/Failures.dart';
-import 'package:lumiere/app/core/errors/exceptions.dart';
+import 'package:lumiere/app/shared/core/errors/Failures.dart';
+import 'package:lumiere/app/shared/core/errors/exceptions.dart';
 import 'package:lumiere/app/modules/movies/data/datasource/datasource.dart';
 import 'package:lumiere/app/modules/movies/data/models/movie_model.dart';
 import 'package:lumiere/app/modules/movies/data/repository/repository_implements.dart';

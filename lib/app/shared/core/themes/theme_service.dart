@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lumiere/app/core/themes/dark_theme.dart';
+import 'package:lumiere/app/shared/core/themes/dark_theme.dart';
 
 
 

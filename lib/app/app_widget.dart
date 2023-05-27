@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lumiere/app/core/styles/color_schemes.g.dart';
+import 'package:lumiere/app/shared/core/styles/color_schemes.g.dart';
 import 'package:lumiere/app/shared/app_controller_store.dart';
 
 class AppWidget extends StatefulWidget {
@@ -12,25 +12,23 @@ class AppWidget extends StatefulWidget {
 
 class _AppWidgetState extends State<AppWidget> {
   final AppControllerStore appControllerStore = Modular.get();
-  
+
   @override
   void initState() {
     super.initState();
     startTheme();
-    
   }
 
-  startTheme() async{
+  startTheme() async {
     await appControllerStore.getTheme();
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-          routeInformationParser: Modular.routeInformationParser,
-          routerDelegate: Modular.routerDelegate,
-          title: 'Flutter Slidy',
-          theme:  appControllerStore.value.theme
-        );
+        routeInformationParser: Modular.routeInformationParser,
+        routerDelegate: Modular.routerDelegate,
+        title: 'Lumiere',
+        theme: appControllerStore.value.theme);
   }
 }

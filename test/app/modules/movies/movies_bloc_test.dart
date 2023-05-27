@@ -2,7 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lumiere/app/modules/movies/domain/entities/movie.dart';
-import 'package:lumiere/app/core/errors/Failures.dart';
+import 'package:lumiere/app/shared/core/errors/Failures.dart';
 import 'package:lumiere/app/modules/movies/domain/repository/movie_repository.dart';
 import 'package:lumiere/app/modules/movies/presenter/movies_bloc.dart';
 

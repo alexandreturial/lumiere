@@ -5,5 +5,6 @@ abstract class IMovieDatasource{
   Future<List<MovieModel?>> searchMovies(int pageNumber, String search);
 
   Future<List<ProvidersModel?>> movieWatchProviders(int movieId);
-  
+
+  Future<bool> saveMovieInSchedule(Map<String, dynamic> movie, int date);
 }

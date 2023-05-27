@@ -1,17 +1,20 @@
 import 'package:dio/dio.dart';
-import 'package:lumiere/app/core/errors/exceptions.dart';
-import 'package:lumiere/app/core/http_client/http_client.dart';
+import 'package:lumiere/app/shared/core/errors/exceptions.dart';
+import 'package:lumiere/app/shared/core/http_client/http_client.dart';
 import 'package:lumiere/app/modules/movies/data/datasource/datasource.dart';
 import 'package:lumiere/app/modules/movies/data/datasource/routes/client.dart';
 import 'package:lumiere/app/modules/movies/data/models/movie_model.dart';
 import 'package:lumiere/app/modules/movies/data/models/provider_model.dart';
+import 'package:lumiere/app/shared/database/adapter_database.dart';
 
 class MovieDatasourceImplementation implements IMovieDatasource {
   final HttpClient client;
+  final LumiereDatabase database;
 
   MovieDatasourceImplementation(
     {
       required this.client,
+      required this.database,
     }
   );
 
@@ -22,9 +25,10 @@ class MovieDatasourceImplementation implements IMovieDatasource {
       MovieEndPoints.searchMovie(pageNumber: pageNumber, search: search),
       Options()
     );    
+
+
     if( response.statusCode == 200 ){
       var content = response.data['results'] as List;
-      //print(content);
       
       return content.map((item) => MovieModel.fromJson(item)).toList();
     }else{
@@ -46,6 +50,19 @@ class MovieDatasourceImplementation implements IMovieDatasource {
     }else{
       throw ServerException();
     }
+  }
+  
+  @override
+  Future<bool> saveMovieInSchedule(Map<String, dynamic> movie, int date) async{
+    try {
+      database.addMovie(date, movie);
+      return true;
+    } catch (e) {
+      print(e);
+      
+      rethrow;
+    }
+   
   }
 
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lumiere/app/core/themes/theme_service.dart';
+import 'package:lumiere/app/shared/core/themes/theme_service.dart';
 import 'package:lumiere/app/shared/models/app_model.dart';
 
 // ignore: must_be_immutable
