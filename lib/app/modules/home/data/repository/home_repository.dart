@@ -25,4 +25,33 @@ class HomeRepositoryImpl implements IHomeMovieRepository {
       );
     }
   }
+  
+  @override
+  Future<Either<Faliure, bool>> deleteMovieById(int movieId) async{
+
+    try {
+      return Right(await homeMovieDataSource.deleteMovieById(movieId));
+    } catch (e) {
+      return Left(
+        ServerFailure(
+          errorCode: 401,
+          errorMessage: 'Erro ao conectar ao servidor',
+        ),
+      );
+    }
+  }
+  
+  @override
+  Future<Either<Faliure, bool>> viewerMovie(int movieId) async{
+    try {
+      return Right(await homeMovieDataSource.deleteMovieById(movieId));
+    } catch (e) {
+      return Left(
+        ServerFailure(
+          errorCode: 401,
+          errorMessage: 'Erro ao conectar ao servidor',
+        ),
+      );
+    }
+  }
 }

@@ -37,6 +37,7 @@ class MovieEntity extends IMovie {
       'name': name,
       'poster': poster,
       'overview': overview,
+      'hasViewer': false,
       'date': date,
       'popularity': popularity,
       'providerList':

@@ -8,6 +8,7 @@ abstract class IMovie extends Equatable {
   final String poster;
   final String overview;
   final String date;
+  final bool hasViewer;
   final double popularity;
   List<IMovieProvider?> providerList;
 
@@ -20,6 +21,7 @@ abstract class IMovie extends Equatable {
     required this.date,
     required this.popularity,
     required this.providerList,
+    this.hasViewer = false,
   });
 
   IMovie copyWith();
@@ -33,6 +35,7 @@ abstract class IMovie extends Equatable {
     poster,
     overview,
     date,
+    hasViewer,
     providerList
   ];
 }

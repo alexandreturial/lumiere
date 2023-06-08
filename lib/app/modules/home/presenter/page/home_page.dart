@@ -27,6 +27,7 @@ class _HomePageState extends State<HomePage> {
   CalendarFormat format = CalendarFormat.twoWeeks;
   List<MovieModel> filmes = [];
   List<HomeMovieEntity> moviePerDay = [];
+  int tab = 1;
 
   @override
   void initState() {
@@ -123,43 +124,124 @@ class _HomePageState extends State<HomePage> {
                       );
                   }
                 }),
-            Expanded(
-              child: SizedBox(
-                height: responsive
-                    .hp(format == CalendarFormat.twoWeeks ? 64.3 : 43.5),
-                width: responsive.width,
-                child: DraggableScrollableSheet(
-                  controller: controllerScrollable,
-                  maxChildSize: 1,
-                  minChildSize: 0.9,
-                  snapSizes: const [0.9, 1],
-                  initialChildSize: 0.9,
-                  builder: (BuildContext context,
-                      ScrollController scrollController) {
-                    return Container(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                      child: ValueListenableBuilder<HomeStates>(
-                        valueListenable: homeBloc,
-                        builder: (context, state, child) {
-                          switch (state.runtimeType) {
-                            case HomeList:
-                              state as HomeList;
-                              return ListMoviesWidget(
-                                movies: state.moviesPerDay,
-                                scrollController: scrollController,
-                              );
-                            default:
-                              return Container();
-                          }
-                        },
-                      ),
-                    );
-                  },
-                ),
-              ),
+            SizedBox(
+              height: responsive.hp(format == CalendarFormat.twoWeeks ? 58 : 37.3),
+              width: responsive.width,
+              child: contentScrollableSheet(responsive),
             )
           ],
         ),
+      ),
+    );
+  }
+
+  Widget getScrollableSheet(Responsive responsive) {
+    return DraggableScrollableSheet(
+      controller: controllerScrollable,
+      maxChildSize: 1,
+      minChildSize: 0.9,
+      snapSizes: const [0.9, 1],
+      initialChildSize: 0.9,
+      builder: (BuildContext context, ScrollController scrollController) {
+        return contentScrollableSheet(responsive);
+      },
+    );
+  }
+
+  Widget contentScrollableSheet(Responsive responsive) {
+    return Container(
+      color: Theme.of(context).colorScheme.onSurfaceVariant,
+      child: ValueListenableBuilder<HomeStates>(
+        valueListenable: homeBloc,
+        builder: (context, state, child) {
+          switch (state.runtimeType) {
+            case HomeList:
+              state as HomeList;
+              return Column(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        if (format == CalendarFormat.month) {
+                          format = CalendarFormat.twoWeeks;
+                        } else {
+                          format = CalendarFormat.month;
+                        }
+                      });
+                    },
+                    child: Icon(
+                        color: Theme.of(context).colorScheme.onBackground,
+                        format == CalendarFormat.twoWeeks
+                            ? Icons.keyboard_arrow_down_sharp
+                            : Icons.keyboard_arrow_up_sharp),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              tab = 1;
+                            });
+                          },
+                          child: Text("Não Vistos"),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 4,
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              tab = 2;
+                            });
+                          },
+                          child: Text("Vistos"),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                    ],
+                  ),
+                  Expanded(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        AnimatedContainer(
+                          duration: const Duration(seconds: 2),
+                          width: tab == 1 ? responsive.width : 0,
+                          curve: Curves.fastOutSlowIn,
+                          child: ListMoviesWidget(
+                            movies: state.moviesPerDay,
+                          ),
+                        ),
+                        AnimatedContainer(
+                          duration: const Duration(seconds: 2),
+                          width: tab == 2 ? responsive.width : 0,
+                          curve: Curves.fastOutSlowIn,
+                          child: ListMoviesWidget(
+                            movies: state.moviesPerDay,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              );
+
+            default:
+              return Container();
+          }
+        },
       ),
     );
   }

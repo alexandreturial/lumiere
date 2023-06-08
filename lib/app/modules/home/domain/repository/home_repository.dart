@@ -5,4 +5,7 @@ import 'package:lumiere/app/shared/core/errors/Failures.dart';
 abstract class IHomeMovieRepository{
   Future<Either<Faliure, List<HomeMovieEntity>>> getAllMoviesSaved();
 
+  Future<Either<Faliure, bool>> deleteMovieById(int movieId);
+
+  Future<Either<Faliure, bool>> viewerMovie(int movieId);
 }

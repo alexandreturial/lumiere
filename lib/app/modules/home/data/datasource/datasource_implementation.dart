@@ -22,4 +22,25 @@ class HomeMovieDatasourceImplementation implements IHomeMovieDatasource {
     ).toList();
     return moviesConverted;
   }
+  
+  @override
+  Future<bool> deleteMovieById(int movieId) {
+    database.removeMovie(movieId);
+
+    return Future.value(false);
+  }
+  
+  @override
+  Future<bool> editMovieById(int movieId) {
+    database.mediaWatched(movieId);
+
+    return Future.value(false);
+  }
+  
+  @override
+  Future<bool> viewerMovie(int movieId) {
+    database.mediaWatched(movieId);
+
+    return Future.value(false);
+  }
 }

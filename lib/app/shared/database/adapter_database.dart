@@ -7,6 +7,8 @@ abstract class LumiereDatabase {
 
   void editDate(int date, int movieId);
 
+  void mediaWatched(int movieId);
+
   void removeMovie(int movieId);
 
   void removeAllMovies();

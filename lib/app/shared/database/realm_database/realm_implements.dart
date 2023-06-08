@@ -41,10 +41,18 @@ class LumiereDatabaseImpl implements LumiereDatabase {
   @override
   void removeMovie(int movieId) {
     List<MovieModel> movies = getAllMovie();
-    movies.where((movie){
-       Map<String, dynamic> json = _decodeMovie(movie.movie);
+
+    List<MovieModel> movieSelected = movies.where((movie){
+      Map<String, dynamic> json = _decodeMovie(movie.movie);
       return json['id'] == movieId;
-    });
+    }).toList();
+
+
+    if(movieSelected.isNotEmpty){
+      realm.write(() {
+        realm.delete<MovieModel>(movieSelected.first);
+      });
+    }
   }
 
   Map<String, dynamic> _decodeMovie(String movie){
@@ -60,7 +68,24 @@ class LumiereDatabaseImpl implements LumiereDatabase {
     realm.write(() {
       realm.deleteAll<MovieModel>();
     });
-    
+  }
+  
+  @override
+  void mediaWatched(int movieId) {
+    List<MovieModel> movies = getAllMovie();
+
+
+    realm.write((){
+        List<MovieModel> movieFormated = movies.map((data){
+          Map<String, dynamic> json = _decodeMovie(data.movie);
+          if(json['id'] == movieId){
+            json['hasViewer'] = true;
+          }
+          data.movie = _encodeMovie(json);
+          print(data);
+          return data;
+        }).toList();
+    });
   }
 
 }

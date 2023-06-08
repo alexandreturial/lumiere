@@ -19,6 +19,15 @@ class HomeBloc extends ValueNotifier<HomeStates> {
     });
   }
 
+  Future<void> deleteMovieById(int movieId)  async {
+    var result = await homeRepository.deleteMovieById(movieId);
+   
+  }
+
+  Future<void> viewerMovie(int movieId)  async {
+    var result = await homeRepository.viewerMovie(movieId);
+   
+  }
 
   sertMoviesAtCalendar(DateTime date){
     List<HomeMovieEntity> movies = loadMovies(date);
@@ -34,7 +43,6 @@ class HomeBloc extends ValueNotifier<HomeStates> {
     }
     
   }
-
 
   List<HomeMovieEntity> loadMovies(DateTime date) {
     if (value is HomeList) {
