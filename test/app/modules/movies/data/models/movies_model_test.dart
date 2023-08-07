@@ -10,7 +10,5 @@ void main() {
   test('should be a subclass of MovieEntity',(){
     expect(movieModel, isA<MovieEntity>());
   });
-
-
  
 }

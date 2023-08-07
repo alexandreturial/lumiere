@@ -11,17 +11,19 @@ class HomeMovieModel extends HomeMovieEntity{
     required super.date, 
     required super.popularity, 
     required super.dateSaved,
-    required super.providerList});
+    required super.providerList,
+    super.hasViewer});
 
-  factory HomeMovieModel.fromJson(Map<String, dynamic> json, int dateSaved){    
+  factory HomeMovieModel.fromJson(Map<String, dynamic> json, int dateSaved){ 
     var providerList = json['providerList'] as List;
     List<HomeProvidersModel?> providers = providerList.map((provider) =>  HomeProvidersModel.fromJson(provider)).toList();
-
+    
     return HomeMovieModel(
       id: json['id'],
       dateSaved: dateSaved ?? 0,
       name: json['name'] ?? '',
       poster: json['poster'] ?? '',
+      hasViewer: json['hasViewer']??false,
       date: json['release_date'] ?? '',
       overview: json['overview'] ?? '',
       popularity: json['popularity'] ?? 1,

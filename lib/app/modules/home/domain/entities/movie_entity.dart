@@ -12,7 +12,8 @@ class HomeMovieEntity extends IMovie {
       required super.date,
       required super.popularity,
       required super.providerList,
-      required this.dateSaved});
+      required this.dateSaved,
+      super.hasViewer});
 
   // final int id;
   // final int dateSaved;
@@ -44,6 +45,7 @@ class HomeMovieEntity extends IMovie {
       'date': date,
       'popularity': popularity,
       'providerList': providerList.map((x) => x?.toMap()).toList(),
+      'hasViewer': hasViewer,
     };
   }
 
@@ -58,6 +60,7 @@ class HomeMovieEntity extends IMovie {
       date,
       popularity,
       providerList,
+      hasViewer
     ];
   }
 
@@ -71,6 +74,7 @@ class HomeMovieEntity extends IMovie {
     String? date,
     double? popularity,
     List<HomeProvidersEntity?>? providerList,
+    bool? hasViewer
   }) {
     return HomeMovieEntity(
       id: id ?? this.id,
@@ -81,6 +85,7 @@ class HomeMovieEntity extends IMovie {
       date: date ?? this.date,
       popularity: popularity ?? this.popularity,
       providerList: providerList ?? this.providerList,
+      hasViewer: hasViewer ?? this.hasViewer
     );
   }
 }

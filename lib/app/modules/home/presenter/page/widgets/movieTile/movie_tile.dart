@@ -3,6 +3,8 @@ import 'package:lumiere/app/modules/home/domain/entities/movie_entity.dart';
 import 'package:lumiere/app/modules/home/presenter/controller/home_bloc.dart';
 import 'package:lumiere/app/modules/home/presenter/page/widgets/movieTile/card_btn_action_widget.dart';
 import 'package:lumiere/app/modules/home/presenter/page/widgets/movieTile/movie_item.dart';
+import 'package:lumiere/app/shared/widgets/dialogs/dialogs_types.dart';
+import 'package:lumiere/app/shared/widgets/dialogs/dialogs_widget.dart';
 import 'package:lumiere/app/utils/responsive.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -91,8 +93,14 @@ class _MovieTileState extends State<MovieTile> {
     return Row(
       children: [
         CardActionBtnWidget(
-          actionBtn: () {
-            homeBloc.deleteMovieById(widget.movie.id);
+          actionBtn: () async{
+            bool result = await homeBloc.deleteMovieById(widget.movie.id);
+            if(result){
+              Dialogs.handleDilalog(context, type: DialogsTypes.SucessDialog, title: "Filme removido com sucesso", message: "codigo: 200");
+            }else{
+              Dialogs.handleDilalog(context, type: DialogsTypes.ErrorDialog, title: "Não foi possível remover o filme", message: "codigo: 400");
+
+            }
           },
           iconCard: Icons.delete_outline_outlined,
           colorCard: Theme.of(context).colorScheme.primaryContainer,
@@ -101,8 +109,15 @@ class _MovieTileState extends State<MovieTile> {
           width: 4,
         ),
         CardActionBtnWidget(
-          actionBtn: () {
-            homeBloc.viewerMovie(widget.movie.id);
+          actionBtn: () async{
+            bool result = await homeBloc.viewerMovie(widget.movie.id);
+            if(result){
+              Dialogs.handleDilalog(context, type: DialogsTypes.SucessDialog, title: "Filme concluido com sucesso", message: "codigo: 200");
+            }else{
+              Dialogs.handleDilalog(context, type: DialogsTypes.ErrorDialog, title: "Não foi possível concluir o filme", message: "codigo: 400");
+
+            }
+
           },
           iconCard: Icons.check,
           colorCard: Colors.teal,

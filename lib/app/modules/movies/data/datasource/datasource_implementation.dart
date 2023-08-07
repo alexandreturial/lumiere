@@ -44,8 +44,7 @@ class MovieDatasourceImplementation implements IMovieDatasource {
     );    
     if( response.statusCode == 200 ){
       var content = response.data['results']['AR']['flatrate'] as List;
-      //print(content);
-      
+    
       return content.map((item) => ProvidersModel.fromJson(item)).toList();
     }else{
       throw ServerException();

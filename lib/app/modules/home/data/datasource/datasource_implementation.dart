@@ -13,6 +13,7 @@ class HomeMovieDatasourceImplementation implements IHomeMovieDatasource {
 
   @override
   Future<List<HomeMovieModel>> getAllMoviesSaved() async {
+    
     var filmes = database.getAllMovie();
     
     List<HomeMovieModel> moviesConverted = filmes.map(
@@ -20,6 +21,8 @@ class HomeMovieDatasourceImplementation implements IHomeMovieDatasource {
         jsonDecode(filme.movie), filme.date 
       ),
     ).toList();
+
+    
     return moviesConverted;
   }
   
@@ -27,14 +30,13 @@ class HomeMovieDatasourceImplementation implements IHomeMovieDatasource {
   Future<bool> deleteMovieById(int movieId) {
     database.removeMovie(movieId);
 
-    return Future.value(false);
+    return Future.value(true);
   }
   
   @override
   Future<bool> editMovieById(int movieId) {
     database.mediaWatched(movieId);
-
-    return Future.value(false);
+    return Future.value(true);
   }
   
   @override

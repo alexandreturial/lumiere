@@ -21,7 +21,7 @@ class MoviesModule extends Module {
   @override
   final List<ModularRoute> routes = [
     ChildRoute('/', child: (_, args) => const MoviesPage(), 
-        transition: TransitionType.rightToLeft,
+        transition: TransitionType.fadeIn,
         duration: const Duration(seconds: 1)),
     ChildRoute('/detail',
         child: (_, args) => MovieDetail(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lumiere/app/modules/home/domain/entities/movie_entity.dart';
 import 'package:lumiere/app/modules/home/presenter/page/widgets/movieTile/movie_tile.dart';
-import 'package:lumiere/app/utils/responsive.dart';
 
 class ListMoviesWidget extends StatefulWidget {
   final List<HomeMovieEntity> movies;
@@ -20,7 +19,7 @@ class _ListMoviesWidgetState extends State<ListMoviesWidget> {
  
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return ListView.separated(
       shrinkWrap: true,
       itemCount: widget.movies.length,
       itemBuilder: (BuildContext context, int index) {
@@ -29,6 +28,11 @@ class _ListMoviesWidgetState extends State<ListMoviesWidget> {
           child: MovieTile(
             movie: movie,
           ),
+        );
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return const SizedBox(
+          height: 8,
         );
       },
     );

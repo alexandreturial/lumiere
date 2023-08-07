@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lumiere/app/modules/home/domain/entities/movie_entity.dart';
+import 'package:lumiere/app/shared/core/styles/app_text_style.dart';
 
 class MovieItem extends StatefulWidget {
   final HomeMovieEntity movie;
@@ -22,7 +23,7 @@ class _MovieItemState extends State<MovieItem> {
         Modular.to.pushNamed('/search/detail', arguments: [widget.movie, 0]);
       },
       leading: leadingTile(),
-      title: Text(widget.movie.name),
+      title: Text(widget.movie.name, style: AppTextStyles.textBoldH14,),
       subtitle: SizedBox(
         child: Text(
           widget.movie.overview,

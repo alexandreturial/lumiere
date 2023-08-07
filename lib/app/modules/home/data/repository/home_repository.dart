@@ -44,7 +44,7 @@ class HomeRepositoryImpl implements IHomeMovieRepository {
   @override
   Future<Either<Faliure, bool>> viewerMovie(int movieId) async{
     try {
-      return Right(await homeMovieDataSource.deleteMovieById(movieId));
+      return Right(await homeMovieDataSource.viewerMovie(movieId));
     } catch (e) {
       return Left(
         ServerFailure(

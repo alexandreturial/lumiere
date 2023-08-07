@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lumiere/app/modules/movies/presenter/detailMovie/movie_detail_state.dart';
-import 'package:lumiere/app/modules/movies/presenter/widgets/list_movie_provider_widget.dart';
+import 'package:lumiere/app/shared/widgets/list_movie_provider_widget.dart';
 import 'package:lumiere/app/modules/movies/presenter/detailMovie/movie_detail_bloc.dart';
 import 'package:lumiere/app/shared/core/styles/core.dart';
 import 'package:lumiere/app/shared/interfaces/movie.dart';
 import 'package:lumiere/app/shared/interfaces/movie_provider.dart';
+import 'package:lumiere/app/shared/widgets/dialogs/dialogs_types.dart';
+import 'package:lumiere/app/shared/widgets/dialogs/dialogs_widget.dart';
 import 'package:lumiere/app/shared/widgets/modals/modal_bottom_widget.dart';
 import 'package:lumiere/app/utils/responsive.dart';
 
@@ -23,6 +25,8 @@ class MovieDetail extends StatefulWidget {
 class _MovieDetailState extends State<MovieDetail> {
   final MovieDetailBloc blocMovie = Modular.get();
   final _formKey = GlobalKey<FormState>();
+  final Dialogs dialog = const Dialogs();
+
   bool showDetail = false;
 
   @override
@@ -44,24 +48,64 @@ class _MovieDetailState extends State<MovieDetail> {
 
   Future<void> saveMovie() async {
     bool result = await blocMovie.saveMovieInSchedule(widget.movie);
-    showModalAction(result);
+
+    if (result) {
+      Dialogs.handleDilalog(
+        context,
+        type: DialogsTypes.SucessDialog,
+        title: "Filme salvo com sucesso!",
+        message: "codigo: 200",
+        actions: [
+          dialog.secundaryButtton(
+            DialogsTypes.SucessDialog,
+            context,
+            title: "Salvo com sucesso!",
+            action: () {
+              Modular.to.popUntil(ModalRoute.withName('/search'));
+            },
+          ),
+          dialog.primaryButton(DialogsTypes.SucessDialog, context,
+              title: "Voltar", action: () {
+            Modular.to.popUntil(ModalRoute.withName('/'));
+          })
+        ],
+      );
+    } else {
+      Dialogs.handleDilalog(
+        context,
+        type: DialogsTypes.ErrorDialog,
+        title: "Infelizmente não conseguimos salvar seu filme",
+        message: "codigo: 400",
+        actions: [
+          dialog.secundaryButtton(DialogsTypes.ErrorDialog, context,
+              title: "Tentar novamente", action: () {
+            saveMovie();
+          }),
+          dialog.primaryButton(DialogsTypes.ErrorDialog, context,
+              title: "cancelar", action: () {
+            print("teste");
+            Modular.to.popUntil(ModalRoute.withName('/search/'));
+          })
+        ],
+      );
+    }
   }
 
-  void showModalAction(result){
+  void showModalAction(result) {
     showModalBottomSheet(
       context: context,
       backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
       builder: (BuildContext context) {
         return ModalBottomWidget(
           isSucceeded: result,
-          errorAction: (){
+          errorAction: () {
             Modular.to.popUntil(ModalRoute.withName('/'));
           },
-          retryAction: (){
+          retryAction: () {
             Modular.to.pop();
             saveMovie();
           },
-          succeededAction: (){
+          succeededAction: () {
             Modular.to.popUntil(ModalRoute.withName('/'));
           },
         );
@@ -102,7 +146,7 @@ class _MovieDetailState extends State<MovieDetail> {
                         return detailMovie(responsive,
                             movieProviders: movieDetail.movie.providerList);
                       }
-                  
+
                       if (state is LoadingState) {
                         return detailMovie(responsive);
                       } else {
@@ -158,7 +202,7 @@ class _MovieDetailState extends State<MovieDetail> {
                       alignment: Alignment.center,
                     );
                   },
-                  errorBuilder: (context, err, stackTrace){
+                  errorBuilder: (context, err, stackTrace) {
                     return Image.asset(
                       AppImages.bannerNotFound,
                       fit: BoxFit.cover,
@@ -211,25 +255,35 @@ class _MovieDetailState extends State<MovieDetail> {
             const SizedBox(
               height: 16,
             ),
-            Text("Onde assistir", style: AppTextStyles.textMediumH16,),
+            Text(
+              "Onde assistir",
+              style: AppTextStyles.textMediumH16,
+            ),
             const SizedBox(
               height: 4,
             ),
             SizedBox(
               width: responsive.width,
               height: 45,
-              child: movieProviders.isEmpty ? Padding(
-                padding:  const  EdgeInsets.only(top: 8, left: 16),
-                child: Text("Nenhum local encontrado", style: AppTextStyles.textRegularH14,),
-              ) :
-              ListMovieProviderWidget(
-                providers: movieProviders,
-              ),
+              child: movieProviders.isEmpty
+                  ? Padding(
+                      padding: const EdgeInsets.only(top: 8, left: 16),
+                      child: Text(
+                        "Nenhum local encontrado",
+                        style: AppTextStyles.textRegularH14,
+                      ),
+                    )
+                  : ListMovieProviderWidget(
+                      providers: movieProviders,
+                    ),
             ),
             const SizedBox(
               height: 16,
             ),
-            Text("Adicionar a agenda", style: AppTextStyles.textMediumH16,),
+            Text(
+              "Adicionar a agenda",
+              style: AppTextStyles.textMediumH16,
+            ),
             const SizedBox(
               height: 8,
             ),
@@ -237,9 +291,9 @@ class _MovieDetailState extends State<MovieDetail> {
               key: _formKey,
               child: TextFormField(
                 controller: blocMovie.dateinput,
-                
                 decoration: const InputDecoration(
-                    icon: Icon(Icons.calendar_today), labelText: "insira uma data"),
+                    icon: Icon(Icons.calendar_today),
+                    labelText: "insira uma data"),
                 readOnly: true,
                 validator: (text) {
                   if (text == null || text.isEmpty) {
@@ -254,8 +308,8 @@ class _MovieDetailState extends State<MovieDetail> {
                     firstDate: DateTime.now(),
                     lastDate: DateTime(2101),
                   );
-            
-                  if (pickedDate != null) {                    
+
+                  if (pickedDate != null) {
                     blocMovie.setDate(pickedDate);
                   }
                 },
@@ -268,7 +322,7 @@ class _MovieDetailState extends State<MovieDetail> {
               width: responsive.width,
               child: ElevatedButton(
                 onPressed: () async {
-                  if(_formKey.currentState!.validate()){
+                  if (_formKey.currentState!.validate()) {
                     saveMovie();
                   }
                 },

@@ -8,9 +8,9 @@ abstract class IMovie extends Equatable {
   final String poster;
   final String overview;
   final String date;
-  final bool hasViewer;
   final double popularity;
   List<IMovieProvider?> providerList;
+  bool hasViewer;
 
 
   IMovie({
